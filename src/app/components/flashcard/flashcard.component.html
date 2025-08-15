@@ -1,0 +1,12 @@
+<mat-card class="flashcard" [class.flipped]="isFlipped" (click)="flip()">
+  <mat-card-content>
+    <div class="card-front" *ngIf="!isFlipped">
+      <h2>{{ wordPair.word }}</h2>
+      <p class="hint">Click to see translation</p>
+    </div>
+    <div class="card-back" *ngIf="isFlipped">
+      <h2>{{ wordPair.translation }}</h2>
+      <p class="hint">Click to see word</p>
+    </div>
+  </mat-card-content>
+</mat-card>

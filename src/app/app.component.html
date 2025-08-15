@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+</mat-toolbar>
+
+<div class="container">
+  <mat-tab-group>
+    <mat-tab label="English Words">
+      <div class="cards-container">
+        <app-flashcard 
+          *ngFor="let word of engWords$ | async" 
+          [wordPair]="word">
+        </app-flashcard>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Japanese Words">
+      <div class="cards-container">
+        <app-flashcard 
+          *ngFor="let word of japaneseWords$ | async" 
+          [wordPair]="word">
+        </app-flashcard>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="All Words">
+      <div class="cards-container">
+        <app-flashcard 
+          *ngFor="let word of allWords$ | async" 
+          [wordPair]="word">
+        </app-flashcard>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<router-outlet></router-outlet>
