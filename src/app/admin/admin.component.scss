@@ -311,5 +311,61 @@ $mondrian-black: #000000;
       }
     }
   }
+  
+  // Header controls container
+  .header-controls {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  // Navigation button styling
+  .nav-button {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid $mondrian-black;
+    border-radius: 0;
+    background: $mondrian-blue;
+    color: $mondrian-white;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      background: darken($mondrian-blue, 10%);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+    }
+    
+    &:active {
+      transform: translate(0px, 0px);
+      box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  .home-button {
+    background: $mondrian-blue;
+    
+    &:hover {
+      background: darken($mondrian-blue, 10%);
+    }
+  }
+  
+  .lock-button {
+    background: $mondrian-red;
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      background: darken($mondrian-red, 10%);
+    }
+  }
 }
 

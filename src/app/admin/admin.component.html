@@ -1,6 +1,20 @@
 <div class="admin-header">
   <h1>✨ Word Admin ✨</h1>
   <p>Add new flashcard pairs</p>
+  
+  <!-- Navigation and Controls -->
+  <div class="header-controls">
+    <button *ngIf="!isLocked" 
+            (click)="lockApp()" 
+            class="nav-button lock-button"
+            title="Lock the app">
+      🔒 Lock
+    </button>
+    
+    <a routerLink="/" class="nav-button home-button">
+      🏠 Back to Flashcards
+    </a>
+  </div>
 </div>
 
 <mat-card class="admin-card" [class.flicking]="isFlicking" [class.locked]="isLocked">

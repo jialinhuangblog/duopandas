@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -14,6 +15,7 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-admin',
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -93,6 +95,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       // Authentication failed - could add error feedback here
       this.password = '';
     }
+  }
+
+  // Lock the app (logout)
+  lockApp() {
+    this.authService.logout();
   }
 
   // Flick the form twice for success feedback

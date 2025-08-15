@@ -1,0 +1,48 @@
+// Mondrian color palette
+$mondrian-red: #dc143c;
+$mondrian-blue: #0047ab;
+$mondrian-yellow: #ffdb00;
+$mondrian-white: #ffffff;
+$mondrian-black: #000000;
+
+.navigation-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  padding: 16px 0;
+}
+
+.nav-button {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  text-decoration: none;
+  padding: 12px 24px;
+  border: 3px solid $mondrian-black;
+  border-radius: 0;
+  background: $mondrian-blue;
+  color: $mondrian-white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+  
+  &:hover {
+    background: darken($mondrian-blue, 10%);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+  }
+  
+  &:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.admin-button {
+  background: $mondrian-red;
+  
+  &:hover {
+    background: darken($mondrian-red, 10%);
+  }
+}

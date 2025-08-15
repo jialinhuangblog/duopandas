@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DictionaryService, WordPair } from '../services/dictionary.service';
 import { FlashcardComponent } from '../components/flashcard/flashcard.component';
@@ -8,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, MatTabsModule, FlashcardComponent],
+  imports: [CommonModule, RouterModule, MatTabsModule, FlashcardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
