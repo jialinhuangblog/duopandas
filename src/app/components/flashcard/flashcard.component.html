@@ -1,12 +1,35 @@
-<mat-card class="flashcard" [class.flipped]="isFlipped" (click)="flip()">
+<mat-card class="flashcard" 
+          [class.flipped]="isFlipped" 
+          [style.background-color]="mondrianColor"
+          [style.border-width.px]="borderWidth"
+          [style.transform]="'rotate(' + rotation + 'deg)'"
+          [style.width]="cardWidth"
+          [style.height]="cardHeight"
+          (click)="flip()">
   <mat-card-content>
-    <div class="card-front" *ngIf="!isFlipped">
-      <h2>{{ wordPair.word }}</h2>
-      <p class="hint">Click to see translation</p>
+    <div class="card-front" *ngIf="!isFlipped"
+         [style.--scrollbar-thumb-color]="getScrollbarThumbColor()"
+         [style.--scrollbar-track-color]="getScrollbarTrackColor()">
+      <h2 [class.japanese-text]="hasNewlines(wordPair.word)" 
+          [class.long-text]="isLongText(wordPair.word)"
+          [class.very-long-text]="isVeryLongText(wordPair.word)"
+          [style.color]="getTextColor()"
+          [style.text-shadow]="getTextShadow()">
+        {{ formatText(wordPair.word) }}
+      </h2>
+      <p class="hint" [style.color]="getTextColor()">Click to see translation</p>
     </div>
-    <div class="card-back" *ngIf="isFlipped">
-      <h2>{{ wordPair.translation }}</h2>
-      <p class="hint">Click to see word</p>
+    <div class="card-back" *ngIf="isFlipped"
+         [style.--scrollbar-thumb-color]="getScrollbarThumbColor()"
+         [style.--scrollbar-track-color]="getScrollbarTrackColor()">
+      <h2 [class.japanese-text]="hasNewlines(wordPair.translation)" 
+          [class.long-text]="isLongText(wordPair.translation)"
+          [class.very-long-text]="isVeryLongText(wordPair.translation)"
+          [style.color]="getTextColor()"
+          [style.text-shadow]="getTextShadow()">
+        {{ formatText(wordPair.translation) }}
+      </h2>
+      <p class="hint" [style.color]="getTextColor()">Click to see word</p>
     </div>
   </mat-card-content>
 </mat-card>
