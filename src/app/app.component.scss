@@ -1,3 +1,80 @@
+// Mondrian color palette
+$mondrian-red: #dc143c;
+$mondrian-blue: #0047ab;
+$mondrian-yellow: #ffdb00;
+$mondrian-white: #ffffff;
+$mondrian-black: #000000;
+
+.mondrian-container {
+  min-height: 100vh;
+  background: $mondrian-white;
+}
+
+.mondrian-header {
+  background: $mondrian-yellow;
+  border-bottom: 6px solid $mondrian-black;
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: $mondrian-black;
+    margin: 0;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  
+  // Auth indicator positioned in top right
+  .auth-indicator {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 2px solid $mondrian-black;
+    background: $mondrian-white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: help;
+    
+    .auth-icon {
+      font-size: 1rem;
+    }
+    
+    .auth-text {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    &.authenticated {
+      background: rgba(0, 255, 0, 0.1);
+      border-color: #4CAF50;
+      color: #2E7D32;
+    }
+    
+    &.locked {
+      background: rgba(255, 0, 0, 0.1);
+      border-color: $mondrian-red;
+      color: $mondrian-red;
+    }
+    
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
 .container {
   padding: 20px;
   max-width: 1200px;

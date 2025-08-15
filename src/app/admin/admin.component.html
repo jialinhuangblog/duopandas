@@ -3,9 +3,35 @@
   <p>Add new flashcard pairs</p>
 </div>
 
-<mat-card class="admin-card">
+<mat-card class="admin-card" [class.flicking]="isFlicking" [class.locked]="isLocked">
   <mat-card-content>
-    <form (ngSubmit)="onSubmit()" #wordForm="ngForm">
+    <!-- Password Lock Screen -->
+    <div *ngIf="isLocked" class="password-lock">
+      <div class="lock-icon">🔒</div>
+      <h2>Admin Access</h2>
+      <p>Enter password to unlock admin panel</p>
+      
+      <mat-form-field appearance="outline" class="password-field">
+        <mat-label>Password</mat-label>
+        <input matInput 
+               type="password"
+               [(ngModel)]="password" 
+               (keyup.enter)="checkPassword()"
+               placeholder="Enter password"
+               autocomplete="off">
+      </mat-form-field>
+      
+      <button mat-raised-button 
+              color="primary" 
+              (click)="checkPassword()"
+              [disabled]="!password.trim()"
+              class="unlock-button">
+        🔓 Unlock
+      </button>
+    </div>
+
+    <!-- Main Admin Form -->
+    <form *ngIf="!isLocked" (ngSubmit)="onSubmit()" #wordForm="ngForm">
       
       <div class="language-selection">
         <label class="language-label">Language</label>

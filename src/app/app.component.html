@@ -1,6 +1,13 @@
 <div class="mondrian-container">
   <div class="mondrian-header">
     <h1>{{ title }}</h1>
+    <div class="auth-indicator" 
+         [class.authenticated]="isAuthenticated"
+         [class.locked]="!isAuthenticated"
+         [title]="isAuthenticated ? 'Authenticated - Delete enabled' : 'Locked - Authentication required for deletion'">
+      <span class="auth-icon">{{ isAuthenticated ? '🔓' : '🔒' }}</span>
+      <span class="auth-text">{{ isAuthenticated ? 'Unlocked' : 'Locked' }}</span>
+    </div>
   </div>
   
   <router-outlet></router-outlet>

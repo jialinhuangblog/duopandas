@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { WordPair } from '../../services/dictionary.service';
+import { Subscription } from 'rxjs';
+import { WordPair, DictionaryService } from '../../services/dictionary.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-flashcard',
@@ -9,7 +11,7 @@ import { WordPair } from '../../services/dictionary.service';
   templateUrl: './flashcard.component.html',
   styleUrl: './flashcard.component.scss'
 })
-export class FlashcardComponent implements OnInit {
+export class FlashcardComponent implements OnInit, OnDestroy {
   @Input() wordPair!: WordPair;
   isFlipped = false;
   mondrianColor: string = '';
@@ -17,6 +19,8 @@ export class FlashcardComponent implements OnInit {
   rotation: number = 0;
   cardWidth: string = 'auto';
   cardHeight: string = 'auto';
+  isAuthenticated = false;
+  private authSubscription?: Subscription;
 
   // Mondrian color palette with variations
   private mondrianColors = [
@@ -35,7 +39,10 @@ export class FlashcardComponent implements OnInit {
     '#000000', // Black (rare)
   ];
 
-  constructor() {
+  constructor(
+    private dictionaryService: DictionaryService,
+    private authService: AuthService
+  ) {
     // Generate random Mondrian properties on initialization
     this.mondrianColor = this.getRandomMondrianColor();
     this.borderWidth = this.getRandomBorderWidth();
@@ -45,6 +52,21 @@ export class FlashcardComponent implements OnInit {
   ngOnInit() {
     // Calculate optimal card dimensions based on both front and back text
     this.calculateCardSize();
+    
+    // Subscribe to authentication state changes
+    this.authSubscription = this.authService.getAuthState().subscribe(
+      isAuthenticated => {
+        this.isAuthenticated = isAuthenticated;
+      }
+    );
+    
+    // Set initial auth state
+    this.isAuthenticated = this.authService.isAuthenticated();
+  }
+
+  ngOnDestroy() {
+    // Clean up subscription
+    this.authSubscription?.unsubscribe();
   }
 
   private calculateCardSize() {
@@ -173,5 +195,20 @@ export class FlashcardComponent implements OnInit {
   isVeryLongText(text: string): boolean {
     if (!text) return false;
     return text.length > 30;
+  }
+
+  // Delete this flashcard
+  async deleteCard(event: Event) {
+    event.stopPropagation(); // Prevent card flip when clicking delete
+    
+    if (confirm(`🗑️ Delete "${this.wordPair.word}"?\n\nThis will permanently remove it from Firestore.`)) {
+      try {
+        await this.dictionaryService.deleteWordPair(this.wordPair);
+        console.log('Card deleted successfully');
+      } catch (error) {
+        console.error('Failed to delete card:', error);
+        alert('❌ Failed to delete word. Please try again.');
+      }
+    }
   }
 }

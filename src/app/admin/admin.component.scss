@@ -35,6 +35,13 @@ $mondrian-black: #000000;
   border: 6px solid $mondrian-black !important;
   border-radius: 0 !important;
   background: $mondrian-white;
+  transition: all 0.1s ease;
+  
+  // Locked state styling
+  &.locked {
+    background: rgba(255, 219, 0, 0.1);
+    border-color: $mondrian-red !important;
+  }
   
   ::ng-deep .mat-mdc-card {
     border-radius: 0 !important;
@@ -43,6 +50,47 @@ $mondrian-black: #000000;
   
   mat-card-content {
     padding: 32px !important;
+  }
+  
+  // Flick animation - quick flash twice
+  &.flicking {
+    animation: flickTwice 0.6s ease-in-out;
+  }
+}
+
+// Subtle double flick animation keyframes
+@keyframes flickTwice {
+  0% { 
+    background: $mondrian-white; 
+    border-color: $mondrian-black;
+  }
+  15% { 
+    background: rgba(255, 219, 0, 0.08); 
+    border-color: rgba(220, 20, 60, 0.4);
+    transform: scale(1.002);
+  }
+  30% { 
+    background: $mondrian-white; 
+    border-color: $mondrian-black;
+    transform: scale(1);
+  }
+  50% { 
+    background: $mondrian-white; 
+    border-color: $mondrian-black;
+  }
+  65% { 
+    background: rgba(255, 219, 0, 0.08); 
+    border-color: rgba(220, 20, 60, 0.4);
+    transform: scale(1.002);
+  }
+  80% { 
+    background: $mondrian-white; 
+    border-color: $mondrian-black;
+    transform: scale(1);
+  }
+  100% { 
+    background: $mondrian-white; 
+    border-color: $mondrian-black;
   }
 }
 
@@ -142,6 +190,77 @@ $mondrian-black: #000000;
     // Keep default fonts and styling, just add our font to inputs for consistency
     .mat-mdc-input-element {
       font-family: 'JetBrains Mono', monospace;
+    }
+  }
+}
+
+// Password lock screen styling
+.password-lock {
+  text-align: center;
+  padding: 20px 0;
+  
+  .lock-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+  
+  h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: $mondrian-black;
+    margin: 16px 0 8px 0;
+    letter-spacing: 2px;
+  }
+  
+  p {
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 24px 0;
+    font-size: 0.9rem;
+  }
+  
+  .password-field {
+    width: 100%;
+    margin-bottom: 20px;
+    
+    ::ng-deep .mat-mdc-form-field {
+      &.mat-focused .mdc-notched-outline {
+        border-color: $mondrian-red !important;
+      }
+      
+      .mat-mdc-input-element {
+        font-family: 'JetBrains Mono', monospace;
+        text-align: center;
+        letter-spacing: 2px;
+      }
+    }
+  }
+  
+  .unlock-button {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    border-radius: 0 !important;
+    padding: 12px 32px !important;
+    font-size: 0.9rem !important;
+    background: $mondrian-red !important;
+    color: $mondrian-white !important;
+    border: 3px solid $mondrian-black !important;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3) !important;
+    
+    &:hover:not(:disabled) {
+      background: #b31c3c !important;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    &:disabled {
+      background: #ccc !important;
+      color: #666 !important;
+      border-color: #999 !important;
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
     }
   }
 }

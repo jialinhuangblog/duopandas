@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, docData, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, docData, updateDoc, deleteField } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -61,6 +61,28 @@ export class DictionaryService {
       
     } catch (error) {
       console.error('Error adding word pair to Firestore:', error);
+      throw error; // Re-throw so the calling component can handle it
+    }
+  }
+
+  // Delete word pair from Firestore
+  async deleteWordPair(wordPair: WordPair): Promise<void> {
+    console.log('Deleting word pair from Firestore:', wordPair);
+    
+    try {
+      const collection = wordPair.category === 'eng' ? 'eng' : 'japanese';
+      const docRef = doc(this.firestore, 'dictionaries', collection);
+      
+      // Delete the field from the document
+      const deleteData = {
+        [wordPair.word]: deleteField()
+      };
+      
+      await updateDoc(docRef, deleteData);
+      console.log('Successfully deleted word pair from Firestore');
+      
+    } catch (error) {
+      console.error('Error deleting word pair from Firestore:', error);
       throw error; // Re-throw so the calling component can handle it
     }
   }

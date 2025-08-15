@@ -6,6 +6,22 @@
           [style.width]="cardWidth"
           [style.height]="cardHeight"
           (click)="flip()">
+  
+  <!-- Delete button - only shows on hover when authenticated -->
+  <button *ngIf="isAuthenticated" 
+          class="delete-button"
+          (click)="deleteCard($event)"
+          title="Delete this flashcard">
+    ×
+  </button>
+  
+  <!-- Lock indicator when not authenticated -->
+  <div *ngIf="!isAuthenticated" 
+       class="lock-indicator"
+       title="Authentication required for deletion">
+    🔒
+  </div>
+  
   <mat-card-content>
     <div class="card-front" *ngIf="!isFlipped"
          [style.--scrollbar-thumb-color]="getScrollbarThumbColor()"

@@ -135,6 +135,62 @@ $mondrian-black: #000000;
     border-color: $mondrian-black;
     transform: rotate(-1deg);
   }
+  
+  // Delete button styling - only shows on hover
+  .delete-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 20;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid $mondrian-white;
+    border-radius: 0;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: $mondrian-white;
+    line-height: 1;
+    
+    &:hover {
+      background: $mondrian-red;
+      border-color: $mondrian-black;
+      transform: scale(1) rotate(-5deg);
+      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+      color: $mondrian-white;
+    }
+  }
+  
+  // Show trash button on card hover
+  &:hover .delete-button {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  // Lock indicator styling - subtle but visible
+  .lock-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 15;
+    opacity: 0.6;
+    font-size: 16px;
+    transition: opacity 0.2s ease;
+    cursor: help;
+  }
+  
+  // Show lock more prominently on hover
+  &:hover .lock-indicator {
+    opacity: 0.8;
+  }
 }
 
 // Flip animation
