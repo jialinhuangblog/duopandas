@@ -1,0 +1,57 @@
+<div class="admin-header">
+  <h1>✨ Word Admin ✨</h1>
+  <p>Add new flashcard pairs</p>
+</div>
+
+<mat-card class="admin-card">
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" #wordForm="ngForm">
+      
+      <div class="language-selection">
+        <label class="language-label">Language</label>
+        <mat-radio-group 
+          [(ngModel)]="language" 
+          name="language"
+          aria-label="Select language" 
+          required>
+          <mat-radio-button value="eng">🇺🇸 English</mat-radio-button>
+          <mat-radio-button value="japanese">🇯🇵 Japanese</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Word/Phrase</mat-label>
+        <input matInput 
+               [(ngModel)]="word" 
+               name="word" 
+               required
+               placeholder="Enter the main word or phrase">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Translation</mat-label>
+        <textarea matInput 
+                  [(ngModel)]="translation" 
+                  name="translation" 
+                  required
+                  rows="3"
+                  placeholder="Enter the translation (use \n for new lines)"></textarea>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button 
+                color="primary" 
+                type="submit" 
+                [disabled]="!wordForm.form.valid">
+          ➕ Add Word
+        </button>
+        
+        <button mat-stroked-button 
+                type="button" 
+                (click)="clear()">
+          🧹 Clear
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
