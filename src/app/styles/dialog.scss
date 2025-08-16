@@ -1,0 +1,21 @@
+// Mondrian Dialog Styling
+.mondrian-dialog {
+  .mat-mdc-dialog-container {
+    border-radius: 0 !important;
+    border: 6px solid #000000 !important;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3) !important;
+    background: #ffffff !important;
+  }
+  
+  .mat-mdc-dialog-title {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+  
+  .mat-mdc-dialog-content {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+  
+  .mat-mdc-dialog-actions {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+}

@@ -1,13 +1,14 @@
 <div class="mondrian-container">
-  <div class="mondrian-header">
+  <div class="mondrian-header" *ngIf="showHeader">
     <h1>{{ title }}</h1>
-    <div class="auth-indicator" 
-         [class.authenticated]="isAuthenticated"
-         [class.locked]="!isAuthenticated"
-         [title]="isAuthenticated ? 'Authenticated - Delete enabled' : 'Locked - Authentication required for deletion'">
+    <button class="auth-indicator" 
+            (click)="toggleAuth()"
+            [class.authenticated]="isAuthenticated"
+            [class.locked]="!isAuthenticated"
+            [title]="isAuthenticated ? 'Click to lock' : 'Click to unlock'">
       <span class="auth-icon">{{ isAuthenticated ? '🔓' : '🔒' }}</span>
       <span class="auth-text">{{ isAuthenticated ? 'Unlocked' : 'Locked' }}</span>
-    </div>
+    </button>
   </div>
   
   <router-outlet></router-outlet>

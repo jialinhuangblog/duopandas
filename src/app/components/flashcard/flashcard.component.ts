@@ -1,19 +1,24 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { WordPair, DictionaryService } from '../../services/dictionary.service';
 import { AuthService } from '../../services/auth.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-flashcard',
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatDialogModule, MatButtonModule],
   templateUrl: './flashcard.component.html',
   styleUrl: './flashcard.component.scss'
 })
 export class FlashcardComponent implements OnInit, OnDestroy {
   @Input() wordPair!: WordPair;
+  @Output() cardHidden = new EventEmitter<WordPair>();
   isFlipped = false;
+  isHiding = false;
   mondrianColor: string = '';
   borderWidth: number = 6;
   rotation: number = 0;
@@ -41,7 +46,8 @@ export class FlashcardComponent implements OnInit, OnDestroy {
 
   constructor(
     private dictionaryService: DictionaryService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {
     // Generate random Mondrian properties on initialization
     this.mondrianColor = this.getRandomMondrianColor();
@@ -197,18 +203,57 @@ export class FlashcardComponent implements OnInit, OnDestroy {
     return text.length > 30;
   }
 
-  // Delete this flashcard
+  // Delete this flashcard (red traffic light)
   async deleteCard(event: Event) {
     event.stopPropagation(); // Prevent card flip when clicking delete
     
-    if (confirm(`🗑️ Delete "${this.wordPair.word}"?\n\nThis will permanently remove it from Firestore.`)) {
+    // Check if user has chosen to skip confirmation
+    const skipConfirmation = localStorage.getItem('skipDeleteConfirmation') === 'true';
+    
+    if (skipConfirmation) {
+      // Delete directly without showing dialog
       try {
         await this.dictionaryService.deleteWordPair(this.wordPair);
         console.log('Card deleted successfully');
       } catch (error) {
         console.error('Failed to delete card:', error);
-        alert('❌ Failed to delete word. Please try again.');
+      }
+      return;
+    }
+    
+    // Show confirmation dialog
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '400px',
+      data: this.wordPair,
+      panelClass: 'mondrian-dialog'
+    });
+
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result && result.confirmed) {
+      // Save the "don't show again" preference
+      if (result.dontShowAgain) {
+        localStorage.setItem('skipDeleteConfirmation', 'true');
+      }
+      
+      try {
+        await this.dictionaryService.deleteWordPair(this.wordPair);
+        console.log('Card deleted successfully');
+      } catch (error) {
+        console.error('Failed to delete card:', error);
       }
     }
+  }
+
+  // Hide this flashcard (yellow traffic light) 
+  hideCard(event: Event) {
+    event.stopPropagation(); // Prevent card flip when clicking hide
+    
+    // Start hiding animation
+    this.isHiding = true;
+    
+    // Wait for animation to complete before emitting
+    setTimeout(() => {
+      this.cardHidden.emit(this.wordPair);
+    }, 250); // Match the CSS animation duration
   }
 }

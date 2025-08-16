@@ -136,41 +136,61 @@ $mondrian-black: #000000;
     transform: rotate(-1deg);
   }
   
-  // Delete button styling - only shows on hover
-  .delete-button {
+  // macOS Traffic Lights styling - only shows on hover
+  .traffic-lights {
     position: absolute;
     top: 8px;
-    right: 8px;
+    left: 8px;
     z-index: 20;
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.2s ease;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid $mondrian-white;
-    border-radius: 0;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
-    font-weight: bold;
-    color: $mondrian-white;
-    line-height: 1;
+    gap: 6px;
     
-    &:hover {
-      background: $mondrian-red;
-      border-color: $mondrian-black;
-      transform: scale(1) rotate(-5deg);
-      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
-      color: $mondrian-white;
+    .traffic-light {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: #bbb; // Default gray state
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 
+                  0 1px 2px rgba(0, 0, 0, 0.3);
+      
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 
+                    0 2px 4px rgba(0, 0, 0, 0.4);
+      }
+      
+      &:active {
+        transform: scale(0.95);
+      }
+      
+      &.red {
+        &:hover {
+          background: #ff5f57; // macOS red
+        }
+      }
+      
+      &.yellow {
+        &:hover {
+          background: #ffbd2e; // macOS yellow
+        }
+      }
+      
+      &.green {
+        &:hover {
+          background: #28ca42; // macOS green
+        }
+      }
     }
   }
   
-  // Show trash button on card hover
-  &:hover .delete-button {
+  // Show traffic lights on card hover
+  &:hover .traffic-lights {
     opacity: 1;
     transform: scale(1);
   }
@@ -215,4 +235,21 @@ $mondrian-black: #000000;
 .very-long-text {
   font-size: 1rem !important;
   line-height: 1.1;
+}
+
+// Hiding animation - elegant fade and gentle shrink
+.flashcard.hiding {
+  animation: hideCard 0.25s ease-out forwards;
+  pointer-events: none; // Disable interactions during animation
+}
+
+@keyframes hideCard {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8); // Gentle shrink
+    opacity: 0;
+  }
 }

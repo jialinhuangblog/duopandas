@@ -10,8 +10,9 @@
     <mat-tab label="English Words">
       <div class="cards-container">
         <app-flashcard 
-          *ngFor="let word of engWords$ | async" 
-          [wordPair]="word">
+          *ngFor="let word of engWords$ | async; trackBy: trackByWord" 
+          [wordPair]="word"
+          (cardHidden)="onCardHidden($event)">
         </app-flashcard>
       </div>
     </mat-tab>
@@ -19,8 +20,9 @@
     <mat-tab label="Japanese Words">
       <div class="cards-container">
         <app-flashcard 
-          *ngFor="let word of japaneseWords$ | async" 
-          [wordPair]="word">
+          *ngFor="let word of japaneseWords$ | async; trackBy: trackByWord" 
+          [wordPair]="word"
+          (cardHidden)="onCardHidden($event)">
         </app-flashcard>
       </div>
     </mat-tab>
@@ -28,8 +30,9 @@
     <mat-tab label="All Words">
       <div class="cards-container">
         <app-flashcard 
-          *ngFor="let word of allWords$ | async" 
-          [wordPair]="word">
+          *ngFor="let word of allWords$ | async; trackBy: trackByWord" 
+          [wordPair]="word"
+          (cardHidden)="onCardHidden($event)">
         </app-flashcard>
       </div>
     </mat-tab>

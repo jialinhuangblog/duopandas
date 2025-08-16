@@ -1,47 +1,17 @@
 <div class="admin-header">
-  <h1>✨ Word Admin ✨</h1>
-  <p>Add new flashcard pairs</p>
-  
-  <!-- Navigation and Controls -->
   <div class="header-controls">
-    <button *ngIf="!isLocked" 
-            (click)="lockApp()" 
-            class="nav-button lock-button"
-            title="Lock the app">
-      🔒 Lock
-    </button>
-    
     <a routerLink="/" class="nav-button home-button">
-      🏠 Back to Flashcards
+      Back to /
     </a>
   </div>
 </div>
 
-<mat-card class="admin-card" [class.flicking]="isFlicking" [class.locked]="isLocked">
+<mat-card class="admin-card" [class.flicking]="isFlicking">
   <mat-card-content>
-    <!-- Password Lock Screen -->
-    <div *ngIf="isLocked" class="password-lock">
-      <div class="lock-icon">🔒</div>
-      <h2>Admin Access</h2>
-      <p>Enter password to unlock admin panel</p>
-      
-      <mat-form-field appearance="outline" class="password-field">
-        <mat-label>Password</mat-label>
-        <input matInput 
-               type="password"
-               [(ngModel)]="password" 
-               (keyup.enter)="checkPassword()"
-               placeholder="Enter password"
-               autocomplete="off">
-      </mat-form-field>
-      
-      <button mat-raised-button 
-              color="primary" 
-              (click)="checkPassword()"
-              [disabled]="!password.trim()"
-              class="unlock-button">
-        🔓 Unlock
-      </button>
+    <!-- Show message if locked -->
+    <div *ngIf="isLocked" class="locked-message">
+      <h2>Access Restricted</h2>
+      <p>Please unlock using the lock button in the top-right corner to access admin features.</p>
     </div>
 
     <!-- Main Admin Form -->
@@ -54,8 +24,8 @@
           name="language"
           aria-label="Select language" 
           required>
-          <mat-radio-button value="eng">🇺🇸 English</mat-radio-button>
-          <mat-radio-button value="japanese">🇯🇵 Japanese</mat-radio-button>
+          <mat-radio-button value="eng">English</mat-radio-button>
+          <mat-radio-button value="japanese">Japanese</mat-radio-button>
         </mat-radio-group>
       </div>
 
@@ -83,13 +53,13 @@
                 color="primary" 
                 type="submit" 
                 [disabled]="!wordForm.form.valid">
-          ➕ Add Word
+          Add Word
         </button>
         
         <button mat-stroked-button 
                 type="button" 
                 (click)="clear()">
-          🧹 Clear
+          Clear
         </button>
       </div>
     </form>

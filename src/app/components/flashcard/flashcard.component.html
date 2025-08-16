@@ -1,5 +1,6 @@
 <mat-card class="flashcard" 
-          [class.flipped]="isFlipped" 
+          [class.flipped]="isFlipped"
+          [class.hiding]="isHiding"
           [style.background-color]="mondrianColor"
           [style.border-width.px]="borderWidth"
           [style.transform]="'rotate(' + rotation + 'deg)'"
@@ -7,13 +8,20 @@
           [style.height]="cardHeight"
           (click)="flip()">
   
-  <!-- Delete button - only shows on hover when authenticated -->
-  <button *ngIf="isAuthenticated" 
-          class="delete-button"
-          (click)="deleteCard($event)"
-          title="Delete this flashcard">
-    ×
-  </button>
+  <!-- macOS Traffic Lights - only shows on hover when authenticated -->
+  <div *ngIf="isAuthenticated" class="traffic-lights">
+    <button class="traffic-light red" 
+            (click)="deleteCard($event)"
+            title="Delete this flashcard">
+    </button>
+    <button class="traffic-light yellow"
+            (click)="hideCard($event)" 
+            title="Hide this flashcard">
+    </button>
+    <button class="traffic-light green"
+            title="Just for show">
+    </button>
+  </div>
   
   <!-- Lock indicator when not authenticated -->
   <div *ngIf="!isAuthenticated" 

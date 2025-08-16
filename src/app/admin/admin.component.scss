@@ -1,175 +1,91 @@
-// Cute Mondrian Admin Styling
-$mondrian-red: #dc143c;
-$mondrian-blue: #0047ab;
-$mondrian-yellow: #ffdb00;
-$mondrian-white: #ffffff;
-$mondrian-black: #000000;
+// Professional Admin Styling
+$admin-black: #000000;
+$admin-white: #ffffff;
+$admin-gray: #666666;
+$admin-light-gray: #f5f5f5;
+$admin-border: #e0e0e0;
 
 .admin-header {
-  background: $mondrian-yellow;
-  border-bottom: 6px solid $mondrian-black;
-  padding: 32px;
-  text-align: center;
-  
-  h1 {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 2.2rem;
-    color: $mondrian-black;
-    margin: 0 0 8px 0;
-    letter-spacing: 2px;
-  }
-  
-  p {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    letter-spacing: 1px;
-  }
+  background: $admin-white;
+  border-bottom: 1px solid $admin-border;
+  padding: 16px 32px;
+  position: relative;
 }
 
 .admin-card {
   max-width: 500px;
-  margin: 40px auto;
-  border: 6px solid $mondrian-black !important;
-  border-radius: 0 !important;
-  background: $mondrian-white;
-  transition: all 0.1s ease;
+  margin: 32px auto;
+  border: 1px solid $admin-border !important;
+  border-radius: 8px !important;
+  background: $admin-white;
+  transition: all 0.2s ease;
   
   // Locked state styling
   &.locked {
-    background: rgba(255, 219, 0, 0.1);
-    border-color: $mondrian-red !important;
+    background: $admin-light-gray;
+    border-color: $admin-gray !important;
   }
   
   ::ng-deep .mat-mdc-card {
-    border-radius: 0 !important;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   }
   
   mat-card-content {
     padding: 32px !important;
   }
   
-  // Flick animation - quick flash twice
+  // Subtle flick animation
   &.flicking {
-    animation: flickTwice 0.6s ease-in-out;
+    animation: subtleFlick 0.3s ease-in-out;
   }
 }
 
-// Subtle double flick animation keyframes
-@keyframes flickTwice {
+// Subtle flick animation keyframes
+@keyframes subtleFlick {
   0% { 
-    background: $mondrian-white; 
-    border-color: $mondrian-black;
-  }
-  15% { 
-    background: rgba(255, 219, 0, 0.08); 
-    border-color: rgba(220, 20, 60, 0.4);
-    transform: scale(1.002);
-  }
-  30% { 
-    background: $mondrian-white; 
-    border-color: $mondrian-black;
-    transform: scale(1);
+    background: $admin-white; 
+    border-color: $admin-border;
   }
   50% { 
-    background: $mondrian-white; 
-    border-color: $mondrian-black;
-  }
-  65% { 
-    background: rgba(255, 219, 0, 0.08); 
-    border-color: rgba(220, 20, 60, 0.4);
-    transform: scale(1.002);
-  }
-  80% { 
-    background: $mondrian-white; 
-    border-color: $mondrian-black;
-    transform: scale(1);
+    background: $admin-light-gray; 
+    border-color: $admin-gray;
   }
   100% { 
-    background: $mondrian-white; 
-    border-color: $mondrian-black;
+    background: $admin-white; 
+    border-color: $admin-border;
   }
 }
 
 // Language selection styling
 .language-selection {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   
   .language-label {
     display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 1rem;
-    color: $mondrian-black;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: $admin-black;
     margin-bottom: 12px;
-    letter-spacing: 1px;
   }
   
   mat-radio-group {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     justify-content: center;
     
     mat-radio-button {
-      font-family: 'JetBrains Mono', monospace !important;
-      font-weight: 500;
-      font-size: 0.95rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+      font-weight: 400;
+      font-size: 0.9rem;
       
       ::ng-deep .mat-mdc-radio-button {
-        .mdc-radio {
-          // Custom radio circle styling
-          .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle {
-            border-color: $mondrian-red !important;
-            border-width: 3px !important;
-          }
-          
-          .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__outer-circle {
-            border-color: $mondrian-black !important;
-            border-width: 2px !important;
-          }
-          
-          .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__inner-circle {
-            background-color: $mondrian-red !important;
-          }
-          
-          // Square instead of round
-          .mdc-radio__outer-circle,
-          .mdc-radio__inner-circle {
-            border-radius: 0 !important;
-          }
-        }
-        
         .mdc-form-field > label {
-          font-family: 'JetBrains Mono', monospace !important;
-          color: $mondrian-black !important;
-          font-size: 0.95rem !important;
-        }
-        
-        &:hover .mdc-radio .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__outer-circle {
-          border-color: $mondrian-blue !important;
-          border-width: 3px !important;
-        }
-        
-        // Add cute box styling around each radio option
-        &::before {
-          content: '';
-          position: absolute;
-          top: -8px;
-          left: -12px;
-          right: -12px;
-          bottom: -8px;
-          border: 2px solid transparent;
-          transition: all 0.2s ease;
-          z-index: -1;
-        }
-        
-        &:hover::before {
-          border-color: $mondrian-black;
-          background: rgba(255, 219, 0, 0.1);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+          color: $admin-black !important;
+          font-size: 0.9rem !important;
         }
       }
     }
@@ -178,194 +94,119 @@ $mondrian-black: #000000;
 
 .full-width {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   
-  // Keep mostly default Material Design styling with minimal Mondrian touches
+  // Clean Material Design styling
   ::ng-deep .mat-mdc-form-field {    
-    // Only override the focus color to match our theme
-    &.mat-focused .mdc-notched-outline {
-      border-color: $mondrian-red !important;
+    .mat-mdc-input-element {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.9rem;
     }
     
-    // Keep default fonts and styling, just add our font to inputs for consistency
-    .mat-mdc-input-element {
-      font-family: 'JetBrains Mono', monospace;
+    .mdc-floating-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.9rem;
     }
   }
 }
 
-// Password lock screen styling
-.password-lock {
+// Locked message styling
+.locked-message {
   text-align: center;
-  padding: 20px 0;
-  
-  .lock-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
-    opacity: 0.8;
-  }
+  padding: 48px 20px;
   
   h2 {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: $mondrian-black;
-    margin: 16px 0 8px 0;
-    letter-spacing: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 500;
+    color: $admin-black;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
   }
   
   p {
-    font-family: 'JetBrains Mono', monospace;
-    color: rgba(0, 0, 0, 0.7);
-    margin: 0 0 24px 0;
+    color: $admin-gray;
+    margin-bottom: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-size: 0.9rem;
-  }
-  
-  .password-field {
-    width: 100%;
-    margin-bottom: 20px;
-    
-    ::ng-deep .mat-mdc-form-field {
-      &.mat-focused .mdc-notched-outline {
-        border-color: $mondrian-red !important;
-      }
-      
-      .mat-mdc-input-element {
-        font-family: 'JetBrains Mono', monospace;
-        text-align: center;
-        letter-spacing: 2px;
-      }
-    }
-  }
-  
-  .unlock-button {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-weight: 600 !important;
-    letter-spacing: 1px !important;
-    border-radius: 0 !important;
-    padding: 12px 32px !important;
-    font-size: 0.9rem !important;
-    background: $mondrian-red !important;
-    color: $mondrian-white !important;
-    border: 3px solid $mondrian-black !important;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3) !important;
-    
-    &:hover:not(:disabled) {
-      background: #b31c3c !important;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3) !important;
-    }
-    
-    &:disabled {
-      background: #ccc !important;
-      color: #666 !important;
-      border-color: #999 !important;
-      box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
-    }
+    line-height: 1.5;
   }
 }
 
 .button-group {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
-  margin-top: 24px;
+  margin-top: 32px;
   
   button {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-weight: 600 !important;
-    letter-spacing: 1px !important;
-    border-radius: 0 !important;
-    padding: 12px 24px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
     font-size: 0.9rem !important;
+    text-transform: none !important;
     
     &.mat-mdc-raised-button {
-      background: $mondrian-red !important;
-      color: $mondrian-white !important;
-      border: 3px solid $mondrian-black !important;
-      box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3) !important;
+      background: $admin-black !important;
+      color: $admin-white !important;
+      border: 1px solid $admin-black !important;
       
       &:hover:not(:disabled) {
-        background: #b31c3c !important;
-        transform: translate(-2px, -2px);
-        box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3) !important;
+        background: lighten($admin-black, 10%) !important;
       }
       
       &:disabled {
-        background: #ccc !important;
-        color: #666 !important;
-        border-color: #999 !important;
-        box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+        background: $admin-gray !important;
+        color: $admin-white !important;
+        border-color: $admin-gray !important;
       }
     }
     
     &.mat-mdc-stroked-button {
-      background: $mondrian-white !important;
-      color: $mondrian-black !important;
-      border: 3px solid $mondrian-black !important;
+      background: $admin-white !important;
+      color: $admin-black !important;
+      border: 1px solid $admin-border !important;
       
       &:hover {
-        background: $mondrian-blue !important;
-        color: $mondrian-white !important;
-        transform: translate(-1px, -1px);
+        background: $admin-light-gray !important;
+        border-color: $admin-gray !important;
       }
     }
   }
   
-  // Header controls container
-  .header-controls {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
+}
 
-  // Navigation button styling
-  .nav-button {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-weight: 600 !important;
-    font-size: 0.8rem !important;
+// Header controls container
+.header-controls {
+  position: absolute;
+  top: 16px;
+  right: 32px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+// Navigation button styling
+.nav-button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid $admin-border;
+  border-radius: 6px;
+  background: $admin-white;
+  color: $admin-black;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: $admin-light-gray;
+    border-color: $admin-gray;
     text-decoration: none;
-    padding: 8px 16px;
-    border: 2px solid $mondrian-black;
-    border-radius: 0;
-    background: $mondrian-blue;
-    color: $mondrian-white;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-    
-    &:hover {
-      background: darken($mondrian-blue, 10%);
-      transform: translate(-1px, -1px);
-      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
-    }
-    
-    &:active {
-      transform: translate(0px, 0px);
-      box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-    }
   }
   
-  .home-button {
-    background: $mondrian-blue;
-    
-    &:hover {
-      background: darken($mondrian-blue, 10%);
-    }
-  }
-  
-  .lock-button {
-    background: $mondrian-red;
-    border: none;
-    cursor: pointer;
-    
-    &:hover {
-      background: darken($mondrian-red, 10%);
-    }
+  &:active {
+    background: darken($admin-light-gray, 5%);
   }
 }
 
