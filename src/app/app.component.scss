@@ -74,27 +74,3 @@ $mondrian-black: #000000;
     }
   }
 }
-
-.container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  padding: 20px 0;
-}
-
-mat-tab-group {
-  margin-top: 20px;
-}
-
-mat-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}

@@ -1,8 +1,6 @@
 <div class="admin-header">
   <div class="header-controls">
-    <a routerLink="/" class="nav-button home-button">
-      Back to /
-    </a>
+    <a routerLink="/" class="nav-button home-button"> Back to / </a>
   </div>
 </div>
 
@@ -11,57 +9,151 @@
     <!-- Show message if locked -->
     <div *ngIf="isLocked" class="locked-message">
       <h2>Access Restricted</h2>
-      <p>Please unlock using the lock button in the top-right corner to access admin features.</p>
+      <p>
+        Please unlock using the lock button in the top-right corner to access
+        admin features.
+      </p>
     </div>
 
     <!-- Main Admin Form -->
-    <form *ngIf="!isLocked" (ngSubmit)="onSubmit()" #wordForm="ngForm">
-      
-      <div class="language-selection">
-        <label class="language-label">Language</label>
-        <mat-radio-group 
-          [(ngModel)]="language" 
-          name="language"
-          aria-label="Select language" 
-          required>
-          <mat-radio-button value="eng">English</mat-radio-button>
-          <mat-radio-button value="japanese">Japanese</mat-radio-button>
+    <div *ngIf="!isLocked">
+      <!-- Form Type Selection -->
+      <div class="form-type-selection">
+        <label class="form-type-label">Content Type</label>
+        <mat-radio-group
+          [(ngModel)]="formType"
+          name="formType"
+          aria-label="Select content type"
+        >
+          <mat-radio-button value="dictionary">Dictionary</mat-radio-button>
+          <mat-radio-button value="inspiration">Inspiration</mat-radio-button>
         </mat-radio-group>
       </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Word/Phrase</mat-label>
-        <input matInput 
-               [(ngModel)]="word" 
-               name="word" 
-               required
-               placeholder="Enter the main word or phrase">
-      </mat-form-field>
+      <!-- Dictionary Form -->
+      <form
+        *ngIf="formType === 'dictionary'"
+        (ngSubmit)="onSubmit()"
+        #wordForm="ngForm"
+      >
+        <div class="language-selection">
+          <label class="language-label">Language</label>
+          <mat-radio-group
+            [(ngModel)]="language"
+            name="language"
+            aria-label="Select language"
+            required
+          >
+            <mat-radio-button value="eng">English</mat-radio-button>
+            <mat-radio-button value="japanese">Japanese</mat-radio-button>
+          </mat-radio-group>
+        </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Translation</mat-label>
-        <textarea matInput 
-                  [(ngModel)]="translation" 
-                  name="translation" 
-                  required
-                  rows="3"
-                  placeholder="Enter the translation (use \n for new lines)"></textarea>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Word/Phrase</mat-label>
+          <input
+            matInput
+            [(ngModel)]="word"
+            name="word"
+            required
+            placeholder="Enter the main word or phrase"
+          />
+        </mat-form-field>
 
-      <div class="button-group">
-        <button mat-raised-button 
-                color="primary" 
-                type="submit" 
-                [disabled]="!wordForm.form.valid">
-          Add Word
-        </button>
-        
-        <button mat-stroked-button 
-                type="button" 
-                (click)="clear()">
-          Clear
-        </button>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Translation</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="translation"
+            name="translation"
+            required
+            rows="3"
+            placeholder="Enter the translation (use \n for new lines)"
+          ></textarea>
+        </mat-form-field>
+
+        <div class="button-group">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!wordForm.form.valid"
+          >
+            Add Word
+          </button>
+
+          <button mat-stroked-button type="button" (click)="clear()">
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <!-- Inspiration Form -->
+      <form
+        *ngIf="formType === 'inspiration'"
+        (ngSubmit)="onSubmit()"
+        #inspirationForm="ngForm"
+      >
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Content</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="content"
+            name="content"
+            required
+            rows="4"
+            placeholder="Enter the inspirational content"
+          ></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Source</mat-label>
+          <input
+            matInput
+            [(ngModel)]="source"
+            name="source"
+            required
+            placeholder="Enter the source (e.g., Modern Family, Shakespeare, etc.)"
+          />
+        </mat-form-field>
+
+        <div class="button-group">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!inspirationForm.form.valid"
+          >
+            Add Inspiration
+          </button>
+
+          <button mat-stroked-button type="button" (click)="clear()">
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <!-- Batch Import Section for Inspirations -->
+      <!-- <div *ngIf="formType === 'inspiration'" class="import-section"> -->
+      <div *ngIf="false" class="import-section">
+        <div class="import-divider">
+          <span>Batch Import</span>
+        </div>
+
+        <div class="import-actions">
+          <button
+            mat-stroked-button
+            color="accent"
+            type="button"
+            (click)="importInspirations()"
+          >
+            📥 Import Sample Inspirations
+          </button>
+          <p class="import-description">
+            Import 3 sample inspirations from constants
+          </p>
+        </div>
       </div>
-    </form>
+    </div>
   </mat-card-content>
 </mat-card>

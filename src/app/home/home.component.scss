@@ -41,9 +41,33 @@ $mondrian-black: #000000;
 
 .admin-button {
   background: $mondrian-red;
-  
+
   &:hover {
     background: darken($mondrian-red, 10%);
+  }
+}
+
+// Inspirations container - independent layout
+.inspirations-container {
+  padding: 16px;
+  columns: 1;
+  column-gap: 16px;
+  
+  @media (min-width: 600px) {
+    columns: 2;
+    column-gap: 16px;
+  }
+
+  @media (min-width: 1200px) {
+    columns: 3;
+    column-gap: 16px;
+  }
+
+  app-inspiration-card {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 8px;
+    break-inside: avoid;
   }
 }
 

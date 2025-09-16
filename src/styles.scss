@@ -21,28 +21,6 @@ body {
   box-sizing: border-box;
 }
 
-.mondrian-container {
-  min-height: 100vh;
-  background: $mondrian-white;
-  border: 8px solid $mondrian-black;
-  padding: 0;
-}
-
-.mondrian-header {
-  background: $mondrian-white;
-  border-bottom: 8px solid $mondrian-black;
-  padding: 24px 32px;
-
-  h1 {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    font-size: 2.5rem;
-    color: $mondrian-black;
-    margin: 0;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-}
 
 .container {
   padding: 24px;
@@ -61,31 +39,24 @@ body {
     flex: 0 0 auto;
   }
 }
-
-// Material tabs styling
-::ng-deep .mat-mdc-tab-group {
-  .mat-mdc-tab-header {
-    background: $mondrian-white;
-    border-bottom: 4px solid $mondrian-black;
-  }
-
-  .mat-mdc-tab {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    &.mdc-tab--active {
-      .mdc-tab__text-label {
-        color: $mondrian-black;
-      }
-    }
-  }
-
-  .mat-mdc-tab-body-wrapper {
-    background: $mondrian-white;
-  }
-}
-
 // Import dialog styles
 @import 'app/styles/dialog.scss';
+
+// Angular Material form field padding override
+.mat-mdc-form-field {
+  .mat-mdc-input-element,
+  .mdc-text-field__input {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .mat-mdc-input-element[rows] {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .mdc-text-field--outlined .mdc-text-field__input {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}

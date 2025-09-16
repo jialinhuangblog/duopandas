@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { DictionaryService, WordPair } from '../services/dictionary.service';
+import { InspirationsService } from '../services/inspirations.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -30,6 +31,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   word = '';
   translation = '';
   language: 'eng' | 'japanese' = 'eng';
+
+  // Inspiration fields
+  content = '';
+  source = '';
+
+  // Form type selection
+  formType: 'dictionary' | 'inspiration' = 'dictionary';
+
   isFlicking = false;
   isLocked = true;
   password = '';
@@ -37,6 +46,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private dictionaryService: DictionaryService,
+    private inspirationsService: InspirationsService,
     private authService: AuthService
   ) { }
 
@@ -58,6 +68,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
+    if (this.formType === 'dictionary') {
+      await this.submitDictionary();
+    } else {
+      await this.submitInspiration();
+    }
+  }
+
+  async submitDictionary() {
     if (this.word.trim() && this.translation.trim()) {
       const newPair: WordPair = {
         word: this.word.trim(),
@@ -81,9 +99,47 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  async submitInspiration() {
+    if (this.content.trim() && this.source.trim()) {
+      try {
+        await this.inspirationsService.addInspiration({
+          content: this.content.trim(),
+          source: this.source.trim()
+        });
+
+        // Clear form on success
+        this.content = '';
+        this.source = '';
+
+        // Flick animation twice
+        this.flickForm();
+      } catch (error) {
+        console.error('Failed to add inspiration:', error);
+        alert('❌ Failed to add inspiration. Please try again.');
+      }
+    }
+  }
+
   clear() {
-    this.word = '';
-    this.translation = '';
+    if (this.formType === 'dictionary') {
+      this.word = '';
+      this.translation = '';
+    } else {
+      this.content = '';
+      this.source = '';
+    }
+  }
+
+  // Batch import inspirations
+  async importInspirations() {
+    try {
+      await this.inspirationsService.batchImportInspirations();
+      this.flickForm();
+      alert('✅ Successfully imported inspirations!');
+    } catch (error) {
+      console.error('Failed to import inspirations:', error);
+      alert('❌ Failed to import inspirations. Please try again.');
+    }
   }
 
   // Password validation using AuthService

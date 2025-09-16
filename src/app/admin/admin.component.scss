@@ -26,11 +26,6 @@ $admin-border: #e0e0e0;
     border-color: $admin-gray !important;
   }
   
-  ::ng-deep .mat-mdc-card {
-    border-radius: 8px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-  }
-  
   mat-card-content {
     padding: 32px !important;
   }
@@ -57,11 +52,29 @@ $admin-border: #e0e0e0;
   }
 }
 
+// Form type selection styling
+.form-type-selection {
+  width: 100%;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid $admin-border;
+
+  .form-type-label {
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: $admin-black;
+    margin-bottom: 12px;
+  }
+
+}
+
 // Language selection styling
 .language-selection {
   width: 100%;
   margin-bottom: 24px;
-  
+
   .language-label {
     display: block;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -72,22 +85,11 @@ $admin-border: #e0e0e0;
   }
   
   mat-radio-group {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
     
     mat-radio-button {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
       font-weight: 400;
       font-size: 0.9rem;
-      
-      ::ng-deep .mat-mdc-radio-button {
-        .mdc-form-field > label {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
-          color: $admin-black !important;
-          font-size: 0.9rem !important;
-        }
-      }
     }
   }
 }
@@ -95,19 +97,6 @@ $admin-border: #e0e0e0;
 .full-width {
   width: 100%;
   margin-bottom: 20px;
-  
-  // Clean Material Design styling
-  ::ng-deep .mat-mdc-form-field {    
-    .mat-mdc-input-element {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.9rem;
-    }
-    
-    .mdc-floating-label {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.9rem;
-    }
-  }
 }
 
 // Locked message styling
@@ -173,8 +162,74 @@ $admin-border: #e0e0e0;
       }
     }
   }
-  
 }
+
+// Import section styling
+.import-section {
+  margin-top: 32px;
+  padding-top: 24px;
+}
+
+.import-divider {
+  text-align: center;
+  position: relative;
+  margin-bottom: 24px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $admin-border;
+  }
+
+  span {
+    background: $admin-white;
+    padding: 0 16px;
+    color: $admin-gray;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.import-actions {
+  text-align: center;
+
+  button {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+    text-transform: none !important;
+    margin-bottom: 12px;
+
+    &.mat-mdc-stroked-button {
+      background: $admin-white !important;
+      color: $admin-black !important;
+      border: 1px solid $admin-border !important;
+
+      &:hover {
+        background: $admin-light-gray !important;
+        border-color: $admin-gray !important;
+      }
+    }
+  }
+}
+
+.import-description {
+  color: $admin-gray;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.8rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
 
 // Header controls container
 .header-controls {
