@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.isLocked = !isAuthenticated;
       }
     );
-    
+
     // Set initial state
     this.isLocked = !this.authService.isAuthenticated();
   }
@@ -143,8 +143,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   // Password validation using AuthService
-  checkPassword() {
-    if (this.authService.authenticate(this.password)) {
+  async checkPassword() {
+    const result = await this.authService.authenticate(this.password)
+    if (result) {
       // Authentication successful - AuthService will update state
       this.password = '';
     } else {
@@ -161,7 +162,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   // Flick the form twice for success feedback
   private flickForm() {
     this.isFlicking = true;
-    
+
     // Reset after animation completes (600ms total for 2 flicks)
     setTimeout(() => {
       this.isFlicking = false;

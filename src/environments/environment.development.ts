@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  adminPassword: 'pandas',
   firebase: {
     apiKey: "AIzaSyCuH_vSNQIN-1t58b3X7e1IzX2HNSB6sKw",
     authDomain: "togepiii-blog.firebaseapp.com",
